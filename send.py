@@ -80,7 +80,7 @@ def forecast_3day(id, text, element):
 	date_id = "F-D0047-077"
 	elementName = "WeatherDescription"  # 預設全部顯示
 	
-	if element == "PoP6h" or element == "Wx":
+	if element == 'PoP6h' or element == 'Wx':
 		elementName = element
 	
 	weatherurl = "{0}/{1}?Authorization={2}&format=JSON&elementName={3}".format(WEATHER_URL, date_id, WEATHER_KEY, elementName)
@@ -107,11 +107,18 @@ def forecast_3day(id, text, element):
 	parameter = []
 	toUser = []
 
-	for i in range(24):
-		start_time.append(weatherElement[i]['startTime'])
-		end_time.append(weatherElement[i]['endTime'])
-		parameter.append(weatherElement[i]['elementValue'][0]['value'])
-		toUser.append(print_time + "\n" + parameter[i])
+	if element == 'PoP6h':
+		for i in range(12):
+			start_time.append(weatherElement[i]['startTime'])
+			end_time.append(weatherElement[i]['endTime'])
+			parameter.append(weatherElement[i]['elementValue'][0]['value'])
+			toUser.append(print_time + "\n" + parameter[i])
+	else:
+		for i in range(24):
+			start_time.append(weatherElement[i]['startTime'])
+			end_time.append(weatherElement[i]['endTime'])
+			parameter.append(weatherElement[i]['elementValue'][0]['value'])
+			toUser.append(print_time + "\n" + parameter[i])
 
 	time_interval = split_time(start_time,end_time,NOW_TIME)
 	alltoUser = title + "\n" + location + " " + zone + "\n\n" + toUser[time_interval]
@@ -170,7 +177,7 @@ def forecast_1week(id, text):
 	alltoUser = title + "\n" + location + " " + zone
 	for i in range(j):
 		alltoUser = alltoUser + "\n\n" + toUser[i]
-
+		
 	payload = {
 		"recipient": {"id": id},
 		"message": {"text": alltoUser}

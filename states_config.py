@@ -17,6 +17,12 @@ transitions=[
         'source': 'state_init',
         'dest': 'start_state0',
     },
+    # {
+    #     'trigger': 'advance',
+    #     'source': 'start_state0',
+    #     'dest': 'start_state0',
+    #     'conditions': 'not_going_to_state1'
+    # },
     {
         'trigger': 'advance',
         'source': 'start_state0',
@@ -60,7 +66,7 @@ transitions=[
         'conditions': 'is_going_to_state7'
     },
     {
-        'trigger': 'go_back',
+        'trigger': 'go_to',
         'source': ['ask_temp_state5','ask_rain_state6','ask_pheno_state7'],
         'dest': 'ask_oneweek_state8',
     },
@@ -71,7 +77,13 @@ transitions=[
         'conditions': 'is_going_to_state4_2'
     },
     {
-        'trigger': 'go_back',
+        'trigger': 'advance',
+        'source': 'ask_oneweek_state8',
+        'dest': 'finish_state9',
+        'conditions': 'not_going_to_state4_2'
+    },
+    {
+        'trigger': 'go_to',
         'source': 'oneweek_state4',
         'dest': 'finish_state9',
     },
@@ -81,9 +93,6 @@ transitions=[
             'ask_zone_state1',
             'ask_interval_state2',
             'realtime_state3',
-            'ask_temp_state5',
-            'ask_rain_state6',
-            'ask_pheno_state7',
             'ask_oneweek_state8'
         ],
         'dest': 'finish_state9',
@@ -92,6 +101,6 @@ transitions=[
     {
         'trigger': 'go_back',
         'source': 'finish_state9',
-        'dest': 'start_state0',
+        'dest': 'state_init',
     }
 ]
