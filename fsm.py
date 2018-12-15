@@ -123,6 +123,7 @@ class TocMachine(GraphMachine):
         print("I'm entering state5")
 
         sender_id = event['sender']['id']
+        print(sender_text)
         responese = send.forecast_3day_temp(sender_id,sender_text)
 
     def on_enter_ask_rain_state6(self, event):

@@ -58,6 +58,8 @@ def forecast_3day_temp(id, text):
 		toUser.append(print_time + "\n" + parameter[i] + "°C")
 
 	time_interval = split_time(start_time,end_time,NOW_TIME)
+	if time_interval == None:
+		time_interval = 1
 	alltoUser = title + "\n" + location + " " + zone + "\n\n" + toUser[time_interval]
 
 	payload = {
