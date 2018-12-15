@@ -78,8 +78,8 @@ transitions=[
     {
         'trigger': 'advance',
         'source': [
-            'ask_interval_state1',
-            'ask_zone_state2',
+            'ask_zone_state1',
+            'ask_interval_state2',
             'realtime_state3',
             'ask_temp_state5',
             'ask_rain_state6',
