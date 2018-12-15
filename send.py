@@ -118,6 +118,7 @@ def forecast_3day(id, text, element):
 			start_time.append(weatherElement[i]['startTime'])
 			end_time.append(weatherElement[i]['endTime'])
 			parameter.append(weatherElement[i]['elementValue'][0]['value'])
+			parameter[i] = add_unicode(parameter[i])
 			toUser.append(print_time + "\n" + parameter[i])
 
 	time_interval = split_time(start_time,end_time,NOW_TIME)
@@ -177,7 +178,7 @@ def forecast_1week(id, text):
 	alltoUser = title + "\n" + location + " " + zone
 	for i in range(j):
 		alltoUser = alltoUser + "\n\n" + toUser[i]
-		
+
 	payload = {
 		"recipient": {"id": id},
 		"message": {"text": alltoUser}
@@ -204,14 +205,34 @@ def send_start(id, text):
 	return response.text
 
 def split_time(start, end, time):
-    '''找出時間的區間
-        第一個參數是起始時間的list，第二個參數是結束時間的list，第三個參數是想找出的時間區間
-        回傳list的index'''
-    index = 0
-    t = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
-    for s, e in zip(start, end):
-        st = datetime.datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
-        et = datetime.datetime.strptime(e, '%Y-%m-%d %H:%M:%S')
-        if(st <= t and et > t):
-            return index
-        index += 1
+	'''找出時間的區間
+		第一個參數是起始時間的list，第二個參數是結束時間的list，第三個參數是想找出的時間區間
+		回傳list的index'''
+	index = 0
+	t = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+	for s, e in zip(start, end):
+		st = datetime.datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
+		et = datetime.datetime.strptime(e, '%Y-%m-%d %H:%M:%S')
+		if(st <= t and et > t):
+			return index
+		index += 1
+
+def add_unicode(text):
+	'''在回傳的天氣狀況前面加上符號'''
+	if text.find("晴時多雲") == 0:
+		text = '\u26c5 ' + text
+		return text
+	elif text.find("晴") == 0:
+		text = '\u2600 ' + text
+		return text
+	elif text.find("雲") == 0:
+		text = '\u2744 ' + text
+		return text
+	elif text.find("雨") == 0:
+		text = '\u2614 ' + text
+		return text
+	elif text.find("雪") == 0:
+		text = '\u26c4 ' + text
+		return text
+	else:
+		return text
