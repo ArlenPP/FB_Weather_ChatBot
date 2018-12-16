@@ -39,11 +39,11 @@ def webhook_handler():
 
 
 if __name__ == "__main__":
-    machine = TocMachine(
-        states = states_config.states,
-        transitions = states_config.transitions,
-        initial = 'state_init',
-        auto_transitions = False,
-        show_conditions = True
-    )
+    # machine = TocMachine(
+    #     states = states_config.states,
+    #     transitions = states_config.transitions,
+    #     initial = 'state_init',
+    #     auto_transitions = False,
+    #     show_conditions = True
+    # )
     app.run(host="0.0.0.0", port=PORT, debug=True, reloader=True)
