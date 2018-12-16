@@ -97,7 +97,7 @@ class TocMachine(GraphMachine):
         if event.get("message"):
             if event['message'].get('text'):
                 text = event['message']['text']
-                if text.find("降雨機率") == 0:
+                if text.find("降雨") == 0:
                     return True
                 else:
                     return False

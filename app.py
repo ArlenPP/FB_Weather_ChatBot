@@ -26,6 +26,7 @@ def setup_webhook():
 def webhook_handler():
     body = request.json
     print('\nFSM STATE: ' + machine.state)
+    goto_list = ['state_init', 'ask_temp_state5', 'ask_rain_state6', 'ask_pheno_state7']
 
     if body['object'] == "page":
         event = body['entry'][0]['messaging'][0]
@@ -33,7 +34,7 @@ def webhook_handler():
 
         if sender_id in global_config.id_list[0]:
             global_config.get_state(sender_id)
-            if machine.state == 'state_init':
+            if machine.state in goto_list:
                 machine.go_to(event)
             else:
                 machine.advance(event)
