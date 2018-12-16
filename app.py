@@ -1,8 +1,8 @@
 from bottle import Bottle, route, run, request, abort, static_file
 
 # from fsm import TocMachine
-# import states_config
-# import global_config
+import states_config
+import global_config
 import os
 import send
 
