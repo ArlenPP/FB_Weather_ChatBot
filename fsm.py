@@ -139,14 +139,14 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         global_config.set_state(sender_id,'ask_interval_state2')
-        send.send_start(sender_id,"你想問""現在""還是""未來一週""的天氣?")
+        send.send_start(sender_id,"你想問\"現在\"還是未來\"一週\"的天氣?")
 
     def on_enter_realtime_state3(self, event):
         print("I'm entering state3")
 
         sender_id = event['sender']['id']
         global_config.set_state(sender_id,'realtime_state3')
-        send.send_start(sender_id,"你想知道""溫度""還是""降雨機率""還是""天氣狀態""?")
+        send.send_start(sender_id,"你想知道\"溫度\"還是\"降雨機率\"還是\"天氣狀態\"?")
 
     def on_enter_oneweek_state4(self, event):
         print("I'm entering state4")
