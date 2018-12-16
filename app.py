@@ -1,13 +1,16 @@
+from bottle import Bottle, route, run, request, abort, static_file
+
+from fsm import TocMachine
+import states_config
+import global_config
 import os
-from bottle import Bottle, request, abort, static_file
-import send
 
 app = Bottle()
 
-VERIFY_TOKEN = os.environ['FB_VERIFY_TOKEN']
+VERIFY_TOKEN = os.environ.get("FB_VERIFY_TOKEN")
 PORT = os.environ['PORT']
 
-@app.route("/webhook", method="GET")
+@app.route("/yiju", method="GET")
 def setup_webhook():
     mode = request.GET.get("hub.mode")
     token = request.GET.get("hub.verify_token")
@@ -16,11 +19,10 @@ def setup_webhook():
     if mode == "subscribe" and token == VERIFY_TOKEN:
         print("WEBHOOK_VERIFIED")
         return challenge
-
     else:
         abort(403)
 
-@app.route("/webhook", method="POST")
+@app.route("/yiju", method="POST")
 def webhook_handler():
     body = request.json
     print('REQUEST BODY: ')
@@ -36,4 +38,11 @@ def webhook_handler():
 
 
 if __name__ == "__main__":
+    machine = TocMachine(
+        states = states_config.states,
+        transitions = states_config.transitions,
+        initial = 'state_init',
+        auto_transitions = False,
+        show_conditions = True
+    )
     app.run(host="0.0.0.0", port=PORT, debug=True, reloader=True)
