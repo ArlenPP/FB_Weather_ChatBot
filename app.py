@@ -26,7 +26,7 @@ def setup_webhook():
 def webhook_handler():
     body = request.json
     print('\nFSM STATE: ' + machine.state)
-    goto_list = ['state_init', 'ask_temp_state5', 'ask_rain_state6', 'ask_pheno_state7']
+    goto_list = ['state_init', 'oneweek_state4', 'ask_temp_state5', 'ask_rain_state6', 'ask_pheno_state7']
 
     if body['object'] == "page":
         event = body['entry'][0]['messaging'][0]
