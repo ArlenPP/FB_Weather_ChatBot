@@ -51,5 +51,5 @@ if __name__ == "__main__":
         auto_transitions = False,
         show_conditions = True
     )
-    machine.get_graph().draw('show-fsm.png', prog='dot')
+    # machine.get_graph().draw('show-fsm.png', prog='dot')
     app.run(host="0.0.0.0", port=PORT, debug=True, reloader=True)
