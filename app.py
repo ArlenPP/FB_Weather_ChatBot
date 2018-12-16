@@ -8,7 +8,7 @@ import os
 app = Bottle()
 
 VERIFY_TOKEN = os.environ.get("FB_VERIFY_TOKEN")
-PORT = os.environ['FB_PORT']
+PORT = os.environ['PORT']
 
 @app.route("/yiju", method="GET")
 def setup_webhook():

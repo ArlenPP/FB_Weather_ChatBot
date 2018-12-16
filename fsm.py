@@ -185,7 +185,7 @@ class TocMachine(GraphMachine):
 
         sender_id = event['sender']['id']
         global_config.set_state(sender_id,'ask_oneweek_state8')
-        send.send_start(sender_id,"你還想知道未來一周的天氣嗎?")
+        send.send_start(sender_id,"你還想知道未來一週的天氣嗎?")
 
     def on_enter_finish_state9(self, event):
         print("I'm entering state9")
