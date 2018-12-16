@@ -105,6 +105,7 @@ def forecast_3day(id, text, element):
 	start_time = []
 	end_time = []
 	parameter = []
+	paracode = []
 	toUser = []
 
 	if element == 'PoP6h':
@@ -118,7 +119,8 @@ def forecast_3day(id, text, element):
 			start_time.append(weatherElement[i]['startTime'])
 			end_time.append(weatherElement[i]['endTime'])
 			parameter.append(weatherElement[i]['elementValue'][0]['value'])
-			parameter[i] = add_unicode(parameter[i])
+			paracode.append(weatherElement[i]['elementValue'][1]['value'])
+			parameter[i] = add_unicode(paracode[i], parameter[i])
 			toUser.append(print_time + "\n" + parameter[i])
 
 	time_interval = split_time(start_time,end_time,NOW_TIME)
@@ -217,22 +219,26 @@ def split_time(start, end, time):
 			return index
 		index += 1
 
-def add_unicode(text):
-	'''在回傳的天氣狀況前面加上符號'''
-	if text.find("晴時多雲") == 0:
-		text = u'\u26c5 ' + text
-		return text
-	elif text.find("晴") == 0:
-		text = u'\u2600 ' + text
-		return text
-	elif text.find("多雲") == 0:
-		text = u'\u2601 ' + text
-		return text
-	elif text.find("雨") == 0:
-		text = u'\u2614 ' + text
-		return text
-	elif text.find("雪") == 0:
-		text = u'\u26c4 ' + text
-		return text
-	else:
-		return text
+def add_unicode(paracode, text):
+	'''在回傳的天氣狀況前面加上符號
+		第一個參數是天氣描述代碼，第二個參數是天氣狀況'''
+
+	cloud = ['02', '05', '06', '49', '58']
+	rain = ['04', '12', '17', '26', '29', '31']
+	umbrella = ['13', '18', '24', '34', '36', '57', '59']
+	mine = ['17', '29', '31', '36']
+	if paracode == '07' or paracode == '08':
+		text = u'\u26c5 ' + text  # 雲和太陽
+	if paracode == '01':
+		text = u'\u2600 ' + text  # 太陽
+	if paracode in cloud:
+		text = u'\u2601 ' + text  # 雲
+	if paracode in rain:
+		text = u'\u2614 ' + text  # 雨
+	if paracode in umbrella:
+		text = u'\uf302 ' + text  # 陣雨
+	if paracode in mine:
+		text = u'\u26a1 ' + text  # 雷
+	if paracode == '60' or paracode == '61':
+		text = u'\u26c4 ' + text  # 雪
+	return text
