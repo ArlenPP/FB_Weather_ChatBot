@@ -220,19 +220,19 @@ def split_time(start, end, time):
 def add_unicode(text):
 	'''在回傳的天氣狀況前面加上符號'''
 	if text.find("晴時多雲") == 0:
-		text = '\u26c5 ' + text
+		text = u'\u26c5 ' + text
 		return text
 	elif text.find("晴") == 0:
-		text = '\u2600 ' + text
+		text = u'\u2600 ' + text
 		return text
-	elif text.find("雲") == 0:
-		text = '\u2744 ' + text
+	elif text.find("多雲") == 0:
+		text = u'\u2601 ' + text
 		return text
 	elif text.find("雨") == 0:
-		text = '\u2614 ' + text
+		text = u'\u2614 ' + text
 		return text
 	elif text.find("雪") == 0:
-		text = '\u26c4 ' + text
+		text = u'\u26c4 ' + text
 		return text
 	else:
 		return text

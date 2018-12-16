@@ -20,7 +20,7 @@ transitions=[
     # {
     #     'trigger': 'advance',
     #     'source': 'start_state0',
-    #     'dest': 'start_state0',
+    #     'dest': '=',
     #     'conditions': 'not_going_to_state1'
     # },
     {
