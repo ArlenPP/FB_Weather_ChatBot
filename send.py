@@ -6,7 +6,7 @@ GRAPH_URL = "https://graph.facebook.com/v2.6"
 ACCESS_TOKEN = os.environ.get("FB_ACCESS_TOKEN")
 
 WEATHER_URL = "https://opendata.cwb.gov.tw/api/v1/rest/datastore"
-WEATHER_KEY = "CWB-CCC8945C-3B4E-46A9-B399-7736148D270A"
+WEATHER_KEY = os.environ.get("WEATHER_KEY")
 WEATHER_LOCATION = "%E8%87%BA%E5%8D%97%E5%B8%82"  # Tainan
 
 NOW_YEAR = datetime.datetime.now().year

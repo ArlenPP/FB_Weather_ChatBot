@@ -8,6 +8,7 @@ import global_config
 def webhook_handler():
     body = request.json
     print('\nFSM STATE: ' + machine.state)
+    print(body)
 
     if body['object'] == "page":
         event = body['entry'][0]['messaging'][0]

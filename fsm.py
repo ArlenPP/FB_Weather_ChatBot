@@ -19,12 +19,13 @@ class TocMachine(GraphMachine):
 
     def is_going_to_state1(self, event):
         if event.get("message"):
-            text = event['message']['text']
-            if text.find("天氣") == 0:
-                return True
-            else:
-                # print(text)
-                return False
+            if event['message'].get('text'):
+                text = event['message']['text']
+                if text.find("天氣") == 0:
+                    return True
+                else:
+                    # print(text)
+                    return False
 
     # def not_going_to_state1(self, event):
     #     if event.get("message"):
@@ -37,78 +38,87 @@ class TocMachine(GraphMachine):
 
     def is_going_to_state2(self, event):
         if event.get("message"):
-            text = event['message']['text']
-            sender_id = event['sender']['id']
-            if text in zone:
-                global_config.set_zone(sender_id, text)
-                return True
-            else:
-                global_config.set_zone(event['sender']['id'], '東區')  # 預設
-                return False
+            if event['message'].get('text'):
+                text = event['message']['text']
+                sender_id = event['sender']['id']
+                if text in zone:
+                    global_config.set_zone(sender_id, text)
+                    return True
+                else:
+                    global_config.set_zone(event['sender']['id'], '東區')  # 預設
+                    return False
 
     def is_going_to_state3(self, event):
         if event.get("message"):
-            text = event['message']['text']
-            if text.find("現在") == 0:
-                return True
-            else:
-                return False
+            if event['message'].get('text'):
+                text = event['message']['text']
+                if text.find("現在") == 0:
+                    return True
+                else:
+                    return False
 
     def is_going_to_state4(self, event):
         if event.get("message"):
-            text = event['message']['text']
-            if text.find("一週") == 0:
-                return True
-            else:
-                return False
+            if event['message'].get('text'):
+                text = event['message']['text']
+                if text.find("一週") == 0:
+                    return True
+                else:
+                    return False
     
     def is_going_to_state4_2(self, event):
         if event.get("message"):
-            text = event['message']['text']
-            if text in yes:
-                return True
-            else:
-                return False
+            if event['message'].get('text'):
+                text = event['message']['text']
+                if text in yes:
+                    return True
+                else:
+                    return False
 
     def not_going_to_state4_2(self, event):
         if event.get("message"):
-            text = event['message']['text']
-            if text in no:
-                return True
-            else:
-                return False
+            if event['message'].get('text'):
+                text = event['message']['text']
+                if text in no:
+                    return True
+                else:
+                    return False
     
     def is_going_to_state5(self, event):
         if event.get("message"):
-            text = event['message']['text']
-            if text.find("溫度") == 0:
-                return True
-            else:
-                return False
+            if event['message'].get('text'):
+                text = event['message']['text']
+                if text.find("溫度") == 0:
+                    return True
+                else:
+                    return False
 
     def is_going_to_state6(self, event):
         if event.get("message"):
-            text = event['message']['text']
-            if text.find("降雨機率") == 0:
-                return True
-            else:
-                return False
+            if event['message'].get('text'):
+                text = event['message']['text']
+                if text.find("降雨機率") == 0:
+                    return True
+                else:
+                    return False
 
     def is_going_to_state7(self, event):
         if event.get("message"):
-            text = event['message']['text']
-            if text.find("天氣狀態") == 0 or text.find("天氣狀況") == 0:
-                return True
-            else:
-                return False
+            if event['message'].get('text'):
+                text = event['message']['text']
+                if text.find("天氣狀態") == 0 or text.find("天氣狀況") == 0:
+                    return True
+                else:
+                    return False
 
     def is_going_to_state9(self, event):
         if event.get("message"):
-            text = event['message']['text']
-            if text.find("結束") == 0:
-                return True
-            else:
-                return False
+            if event['message'].get('text'):
+                text = event['message']['text']
+                if text.find("結束") == 0:
+                    return True
+                else:
+                    return False
         
     def on_enter_start_state0(self, event):
         print("I'm entering state0")

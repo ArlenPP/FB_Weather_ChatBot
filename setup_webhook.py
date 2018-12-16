@@ -1,6 +1,9 @@
 from bottle import route, run, request, abort, static_file
 
-VERIFY_TOKEN = "yiju20181212"
+import os
+
+VERIFY_TOKEN = os.environ.get("FB_VERIFY_TOKEN")
+# VERIFY_TOKEN = "yiju20181212"
 
 @route("/yiju", method="GET")
 def setup_webhook():
