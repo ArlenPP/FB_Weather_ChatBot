@@ -139,9 +139,13 @@ class TocMachine(GraphMachine):
     def on_exit_ask_zone_state1(self, event):
         print("I'm exiting state1")
 
-        sender_id = event['sender']['id']
-        user_zone = global_config.get_zone(sender_id)
-        send.send_start(sender_id,"你選的是 {0}".format(user_zone))
+        if event.get("message"):
+            if event['message'].get('text'):
+                text = event['message']['text']
+                if text.find("結束"):
+                    sender_id = event['sender']['id']
+                    user_zone = global_config.get_zone(sender_id)
+                    send.send_start(sender_id,"你選的是 {0}".format(user_zone))
 
     def on_enter_ask_interval_state2(self, event):
         print("I'm entering state2")
@@ -202,4 +206,5 @@ class TocMachine(GraphMachine):
         sender_id = event['sender']['id']
         global_config.set_state(sender_id,'finish_state9')
         send.send_start(sender_id,"歡迎下次再來詢問天氣~")
+        send.send_button_message(sender_id,"氣象開放資料平台")
         self.go_back(event)

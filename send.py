@@ -259,6 +259,37 @@ def send_quick_replies(id, text, staten):
 		print("Unable to send message: " + response.text)
 	return response.text
 
+def send_button_message(id, text):
+	'''傳快速按鈕
+		第一個參數是使用者id，第二個參數是要傳送的訊息'''
+
+	url = "{0}/me/messages?access_token={1}".format(GRAPH_URL, ACCESS_TOKEN)
+	payload = {
+		"recipient": {"id": id},
+		"message":{
+    		"attachment":{
+      			"type":"template",
+      			"payload":{
+        			"template_type":"button",
+					"text":"資料來源",
+        			"buttons":[
+          			{
+            			"type":"web_url",
+            			"url":"https://opendata.cwb.gov.tw/index",
+            			"title":text,
+            			"webview_height_ratio": "tall"
+          			}
+        			]
+      			}
+    		}
+  		}
+	}
+	response = requests.post(url, json=payload)
+
+	if response.status_code != 200:
+		print("Unable to send message: " + response.text)
+	return response.text
+
 def split_time(start, end, time):
 	'''找出時間的區間
 		第一個參數是起始時間的list，第二個參數是結束時間的list，第三個參數是想找出的時間區間
