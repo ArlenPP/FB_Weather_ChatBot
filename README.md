@@ -20,20 +20,25 @@ pip3 install -r requirements.txt
 
 `FB_VERIFY_TOKEN`, `FB_ACCESS_TOKEN` and `WEATHER_KEY` **MUST** be set to environment variable.
 
-#### Run Locally
-Using `ngrok` as a proxy.
+#### Run 
+1. Locally
 
-```sh
-./ngrok http 1029
-```
+    Using `ngrok` as a proxy.
 
-After that, `ngrok` would generate a https URL.
+    ```sh
+    ./ngrok http 1029
+    ```
 
-#### Run the server
+    After that, `ngrok` would generate a https URL.
 
-```sh
-python3 app.py
-```
+    Run the server
+
+    ```sh
+    python3 app.py
+    ```
+2. Heroku
+
+    Deploy on Heroku
 
 ## Finite State Machine
 ![fsm](./show-fsm.png)

@@ -206,6 +206,59 @@ def send_start(id, text):
 		print("Unable to send message: " + response.text)
 	return response.text
 
+def send_quick_replies(id, text, staten):
+	'''傳快速按鈕
+		第一個參數是使用者id，第二個參數是要傳送的訊息，第三個參數是進入的state'''
+	
+	url = "{0}/me/messages?access_token={1}".format(GRAPH_URL, ACCESS_TOKEN)
+	if staten == "state3":
+		message = {
+			"text":text,
+			"quick_replies":[
+				{
+					"content_type":"text",
+					"title":"溫度",
+					"payload":"溫度",
+				},
+				{
+					"content_type":"text",
+					"title":"降雨機率",
+					"payload":"降雨機率",
+				},
+				{
+					"content_type":"text",
+					"title":"天氣狀況",
+					"payload":"天氣狀況",
+				}
+			]
+		}
+	elif staten == "state2":
+		message = {
+			"text":text,
+			"quick_replies":[
+				{
+					"content_type":"text",
+					"title":"現在",
+					"payload":"現在",
+				},
+				{
+					"content_type":"text",
+					"title":"未來一週",
+					"payload":"未來一週",
+				}
+			]
+		}
+
+	payload = {
+		"recipient": {"id": id},
+		"message": message
+	}
+	response = requests.post(url, json=payload)
+
+	if response.status_code != 200:
+		print("Unable to send message: " + response.text)
+	return response.text
+
 def split_time(start, end, time):
 	'''找出時間的區間
 		第一個參數是起始時間的list，第二個參數是結束時間的list，第三個參數是想找出的時間區間
@@ -218,6 +271,7 @@ def split_time(start, end, time):
 		if(st <= t and et > t):
 			return index
 		index += 1
+	return index
 
 def add_unicode(paracode, text):
 	'''在回傳的天氣狀況前面加上符號

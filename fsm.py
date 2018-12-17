@@ -44,8 +44,10 @@ class TocMachine(GraphMachine):
                 if text in zone:
                     global_config.set_zone(sender_id, text)
                     return True
-                else:
+                elif text.find('區') == 0:
                     global_config.set_zone(event['sender']['id'], '東區')  # 預設
+                    return True
+                else:
                     return False
 
     def is_going_to_state3(self, event):
@@ -61,7 +63,7 @@ class TocMachine(GraphMachine):
         if event.get("message"):
             if event['message'].get('text'):
                 text = event['message']['text']
-                if text.find("一週") == 0:
+                if text.find("一週") == 0 or text.find("未來") == 0:
                     return True
                 else:
                     return False
@@ -106,7 +108,7 @@ class TocMachine(GraphMachine):
         if event.get("message"):
             if event['message'].get('text'):
                 text = event['message']['text']
-                if text.find("天氣狀態") == 0 or text.find("天氣狀況") == 0:
+                if text.find("天氣") == 0:
                     return True
                 else:
                     return False
@@ -134,19 +136,26 @@ class TocMachine(GraphMachine):
         global_config.set_state(sender_id,'ask_zone_state1')
         send.send_start(sender_id,"你想知道台南的哪個地區呢?\n")
 
+    def on_exit_ask_zone_state1(self, event):
+        print("I'm exiting state1")
+
+        sender_id = event['sender']['id']
+        user_zone = global_config.get_zone(sender_id)
+        send.send_start(sender_id,"你選的是 {0}".format(user_zone))
+
     def on_enter_ask_interval_state2(self, event):
         print("I'm entering state2")
 
         sender_id = event['sender']['id']
         global_config.set_state(sender_id,'ask_interval_state2')
-        send.send_start(sender_id,"你想問\"現在\"還是未來\"一週\"的天氣?")
+        send.send_quick_replies(sender_id,"你想問\"現在\"還是未來\"一週\"的天氣?", "state2")
 
     def on_enter_realtime_state3(self, event):
         print("I'm entering state3")
 
         sender_id = event['sender']['id']
         global_config.set_state(sender_id,'realtime_state3')
-        send.send_start(sender_id,"你想知道\"溫度\"還是\"降雨機率\"還是\"天氣狀態\"?")
+        send.send_quick_replies(sender_id,"你想知道\"溫度\"還是\"降雨機率\"還是\"天氣狀態\"?", "state3")
 
     def on_enter_oneweek_state4(self, event):
         print("I'm entering state4")

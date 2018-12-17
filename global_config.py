@@ -6,7 +6,6 @@ id_list.append([])
 def set_id(sender_id):
     '''設定使用者id'''
     id_list[0].append(sender_id)
-    print('新使用者: ')
     print(id_list[0].index(sender_id))
 
 def set_state(sender_id, state):
