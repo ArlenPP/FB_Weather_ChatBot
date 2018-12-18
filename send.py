@@ -229,6 +229,11 @@ def send_quick_replies(id, text, staten):
 					"content_type":"text",
 					"title":"天氣狀況",
 					"payload":"天氣狀況",
+				},
+				{
+					"content_type":"text",
+					"title":"結束",
+					"payload":"結束",
 				}
 			]
 		}
@@ -245,6 +250,11 @@ def send_quick_replies(id, text, staten):
 					"content_type":"text",
 					"title":"未來一週",
 					"payload":"未來一週",
+				},
+				{
+					"content_type":"text",
+					"title":"結束",
+					"payload":"結束",
 				}
 			]
 		}
