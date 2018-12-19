@@ -1,5 +1,7 @@
 # TOC Project 2019 - Messenger Weather Chatbot
 
+<img src="./img/chatbot_icon.png" height="300">
+
 A Facebook messenger bot based on a finite state machine.
 
 Use [OPEN WEATHER DATA](https://opendata.cwb.gov.tw/index)
@@ -41,7 +43,7 @@ pip3 install -r requirements.txt
     Deploy on Heroku
 
 ## Finite State Machine
-![fsm](./show-fsm.png)
+![fsm](./img/show-fsm.png)
 
 #### Trigger
 go_to : No condition go to next state
