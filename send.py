@@ -109,7 +109,7 @@ def forecast_3day(id, text, element):
 	toUser = []
 
 	if element == 'PoP6h':
-		for i in range(12):
+		for i in range(11):
 			start_time.append(weatherElement[i]['startTime'])
 			end_time.append(weatherElement[i]['endTime'])
 			parameter.append(weatherElement[i]['elementValue'][0]['value'])

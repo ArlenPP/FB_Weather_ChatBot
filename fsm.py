@@ -121,6 +121,12 @@ class TocMachine(GraphMachine):
                     return True
                 else:
                     return False
+
+    def on_enter_state_init(self, event):
+        print("I'm entering state init")
+
+        sender_id = event['sender']['id']
+        global_config.set_state(sender_id,'state_init')
         
     def on_enter_start_state0(self, event):
         print("I'm entering state0")
@@ -136,21 +142,12 @@ class TocMachine(GraphMachine):
         global_config.set_state(sender_id,'ask_zone_state1')
         send.send_start(sender_id,"你想知道台南的哪個地區呢?\n")
 
-    def on_exit_ask_zone_state1(self, event):
-        print("I'm exiting state1")
-
-        if event.get("message"):
-            if event['message'].get('text'):
-                text = event['message']['text']
-                if text.find("結束"):
-                    sender_id = event['sender']['id']
-                    user_zone = global_config.get_zone(sender_id)
-                    send.send_start(sender_id,"你選的是 {0}".format(user_zone))
-
     def on_enter_ask_interval_state2(self, event):
         print("I'm entering state2")
 
         sender_id = event['sender']['id']
+        user_zone = global_config.get_zone(sender_id)
+        send.send_start(sender_id,"你選的是 {0}".format(user_zone))
         global_config.set_state(sender_id,'ask_interval_state2')
         send.send_quick_replies(sender_id,"你想問\"現在\"還是未來\"一週\"的天氣?", "state2")
 
