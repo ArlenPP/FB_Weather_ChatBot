@@ -113,7 +113,7 @@ def forecast_3day(id, text, element):
 			start_time.append(weatherElement[i]['startTime'])
 			end_time.append(weatherElement[i]['endTime'])
 			parameter.append(weatherElement[i]['elementValue'][0]['value'])
-			toUser.append(print_time + "\n" + parameter[i])
+			toUser.append(print_time + "\n" + parameter[i] + "%")
 	else:
 		for i in range(24):
 			start_time.append(weatherElement[i]['startTime'])
