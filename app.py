@@ -5,6 +5,8 @@ import states_config
 import global_config
 import os
 
+Hi chatbot 
+
 app = Bottle()
 
 VERIFY_TOKEN = os.environ.get("FB_VERIFY_TOKEN")
